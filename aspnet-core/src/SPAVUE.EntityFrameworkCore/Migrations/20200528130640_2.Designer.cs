@@ -10,8 +10,8 @@ using SPAVUE.EntityFrameworkCore;
 namespace SPAVUE.Migrations
 {
     [DbContext(typeof(SPAVUEDbContext))]
-    [Migration("20200528075256_update_attachment")]
-    partial class update_attachment
+    [Migration("20200528130640_2")]
+    partial class _2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1315,8 +1315,13 @@ namespace SPAVUE.Migrations
 
             modelBuilder.Entity("SPAVUE.Attachment", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AttachmentId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");

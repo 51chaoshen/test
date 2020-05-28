@@ -10,8 +10,8 @@ using SPAVUE.EntityFrameworkCore;
 namespace SPAVUE.Migrations
 {
     [DbContext(typeof(SPAVUEDbContext))]
-    [Migration("20200528074957_add_attachment")]
-    partial class add_attachment
+    [Migration("20200528114012_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1315,37 +1315,53 @@ namespace SPAVUE.Migrations
 
             modelBuilder.Entity("SPAVUE.Attachment", b =>
                 {
-                    b.Property<string>("AttachmentId")
-                        .HasColumnName("ATTACHMENTID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Extenson")
-                        .HasColumnName("EXTENSON")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("FileSize")
-                        .HasColumnName("FILESIZE")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
-                        .HasColumnName("NAME")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remark")
-                        .HasColumnName("REMARK")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SourceId")
-                        .HasColumnName("SOURCEID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .HasColumnName("URL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AttachmentId");
+                    b.HasKey("Id");
 
-                    b.ToTable("common_attachment");
+                    b.ToTable("CommonAttachment");
                 });
 
             modelBuilder.Entity("SPAVUE.Authorization.Roles.Role", b =>

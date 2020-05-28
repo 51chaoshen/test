@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using Castle.Components.DictionaryAdapter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,24 +8,24 @@ using System.Text;
 namespace SPAVUE
 {
 	[Table("CommonAttachment")]
-	public class Attachment:FullAuditedEntity<string>
+	public class Attachment:FullAuditedEntity<int>
 	{
-		///// <summary>
-		///// 附件ID
-		///// </summary>
-		
-		//public string AttachmentId
-		//{
-		//	get;
-		//	set;
-		//}
+		/// <summary>
+		/// 附件ID
+		/// </summary>
+
+		public string AttachmentId
+		{
+			get;
+			set;
+		}
 
 
 
 		/// <summary>
 		/// 附件名称
 		/// </summary>
-		
+
 		public string Name
 		{
 			get;
@@ -62,7 +63,7 @@ namespace SPAVUE
 		}
 
 		/// <summary>
-		/// 文件大小（单位 M） 
+		/// 文件大小（单位 kb） 
 		/// </summary> 
 		
 		public double? FileSize

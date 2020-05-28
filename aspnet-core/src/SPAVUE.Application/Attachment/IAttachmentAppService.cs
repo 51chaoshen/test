@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SPAVUE
 {
-   public  interface IAttachmentAppService : IAsyncCrudAppService<AttachmentDto, string, PagedAttachmentResultRequestDto, CreateAttachmentDto, AttachmentDto>
+   public  interface IAttachmentAppService : IAsyncCrudAppService<AttachmentDto, int, PagedAttachmentResultRequestDto, CreateAttachmentDto, AttachmentDto>
     {
 
     }

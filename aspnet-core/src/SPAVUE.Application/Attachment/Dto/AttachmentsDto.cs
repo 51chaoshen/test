@@ -8,7 +8,7 @@ using System.Text;
 namespace SPAVUE.Dto
 {
 	[AutoMapFrom(typeof(Attachment))]
-	public   class AttachmentDto : EntityDto<string>
+	public   class AttachmentDto : EntityDto<int>
 	{
 		//public string Id
 		//{
@@ -63,6 +63,16 @@ namespace SPAVUE.Dto
 			get;
 			set;
 		}
+
+
+		/// <summary>
+		/// 文件大小
+		/// </summary>
+		public double? FileSize
+		{
+			get;
+			set;
+		}
 	}
 
 
@@ -76,6 +86,12 @@ namespace SPAVUE.Dto
 	[AutoMapTo(typeof(Attachment))]
 	public class CreateAttachmentDto
 	{
+		public string AttachmentId
+		{
+			get;
+			set;
+		}
+
 		/// <summary>
 		/// 附件存储的相对地址
 		/// </summary>
@@ -115,10 +131,18 @@ namespace SPAVUE.Dto
 			set;
 		}
 
+
+
 		/// <summary>
 		/// 后缀名
 		/// </summary>
 		public string Extenson
+		{
+			get;
+			set;
+		}
+
+		public double? FileSize
 		{
 			get;
 			set;
