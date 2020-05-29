@@ -92,5 +92,27 @@ namespace SPAVUE.Attachments
 			get;
 			set;
 		}
+
+
+		/// <summary>
+		/// 附件存储的绝对地址
+		/// </summary>
+
+		public string AbsoluteUrl
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		///  附件相对路径，推荐使用
+		/// </summary>
+
+		public string RelativeUrl
+		{
+			get;
+			set;
+		}
+
 	}
 }

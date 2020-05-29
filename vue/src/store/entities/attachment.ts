@@ -3,4 +3,6 @@ export default class Attachment extends Entity<number>{
     id:number;
     name:string;
     fileSize:number;
+    absoluteUrl:string;
+    extenson:string;
 }

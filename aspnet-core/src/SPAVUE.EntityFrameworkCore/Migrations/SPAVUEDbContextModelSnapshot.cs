@@ -1311,12 +1311,15 @@ namespace SPAVUE.Migrations
                     b.ToTable("AbpWebhookSubscriptions");
                 });
 
-            modelBuilder.Entity("SPAVUE.Attachment", b =>
+            modelBuilder.Entity("SPAVUE.Attachments.Attachment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AbsoluteUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AttachmentId")
                         .HasColumnType("nvarchar(max)");
@@ -1352,6 +1355,9 @@ namespace SPAVUE.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RelativeUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remark")

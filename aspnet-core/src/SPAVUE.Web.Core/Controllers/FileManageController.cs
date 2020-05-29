@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SPAVUE.Attachments;
@@ -87,6 +88,8 @@ namespace SPAVUE.Controllers
                     attachment.Name = file.FileName;                    
                     attachment.Extenson = Path.GetExtension(file.FileName);
                     attachment.FileName = fileName;
+                    attachment.AbsoluteUrl = _configuration["App:ServerRootAddress"] + updateDir +"/"+fileName;
+                    attachment.RelativeUrl ="/"+ updateDir +"/"+ fileName;
                     attachment.AttachmentId = Guid.NewGuid().ToString("N");
                     await _attachmentAppService.CreateAsync(attachment);
 
@@ -105,13 +108,48 @@ namespace SPAVUE.Controllers
 
 
 
+        ///// <summary>
+        ///// 下载
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //public async Task Download(int id)
+        //{
+
+        //    var attachment = await _attachmentAppService.GetAsync(new Abp.Application.Services.Dto.EntityDto<int>(id));
+        //    if (attachment == null)
+        //    {
+        //        throw new ArgumentException("参数异常");
+        //    }
+
+        //    var path = Path.Combine(_webEnvironment.WebRootPath, updateDir, attachment.FileName);
+        //    if (!System.IO.File.Exists(path))
+        //    {
+        //        Response.StatusCode = 404;
+        //    }
+
+        //    using (var stream = new FileStream(path, FileMode.Open))
+        //    {
+
+        //        Response.ContentType = "application/octet-stream";
+        //        Response.Headers.Add("Content-Disposition", string.Format("filename={0}", attachment.Name));
+        //        Response.ContentLength = stream.Length;
+        //        await stream.CopyToAsync(Response.Body);
+
+        //    }
+
+
+        // }
+
+
         /// <summary>
         /// 下载
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task Download(int id)
+        public async Task<ActionResult> Download(int id)
         {
 
             var attachment = await _attachmentAppService.GetAsync(new Abp.Application.Services.Dto.EntityDto<int>(id));
@@ -123,27 +161,20 @@ namespace SPAVUE.Controllers
             var path = Path.Combine(_webEnvironment.WebRootPath, updateDir, attachment.FileName);
             if (!System.IO.File.Exists(path))
             {
-                Response.StatusCode = 404;
+                return new EmptyResult();
             }
-            else
-            {
-                using (var stream = new FileStream(path, FileMode.Open))
-                {
-                    Response.ContentType = "application/octet-stream";
-                    Response.Headers.Add("Content-Disposition", string.Format("filename={0}", attachment.Name));
-                    Response.ContentLength = stream.Length;
-                    await stream.CopyToAsync(Response.Body);
-                }
 
-            }
+
+            return File(new FileStream(path, FileMode.Open), "application/octet-stream", attachment.Name);
+
         }
 
 
-             /// <summary>
-             /// 删除
-             /// </summary>
-             /// <param name="id"></param>
-             /// <returns></returns>
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         public async Task Delete(int id)
         {

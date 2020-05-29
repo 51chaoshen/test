@@ -27,6 +27,7 @@
       </div>
     </Card>
     <upload-Attachment v-model="uploadModalShow" @save-success="getpage"></upload-Attachment>
+    <preview-Attachment v-model="previewModalShow" :imgSrc="previewImgSrc" ></preview-Attachment>
   </div>
 </template>
 <script lang="ts">
@@ -35,7 +36,7 @@ import Util from "@/lib/util";
 import AbpBase from "@/lib/abpbase";
 import PageRequest from "@/store/entities/page-request";
 import uploadAttachment from "./upload.vue";
-
+import previewAttachment from "./preview.vue";
 import Ajax from "./../../../lib/ajax";
 import Attachment from "./../../../store/entities/attachment";
 import AppConsts from './../../../lib/appconst'
@@ -47,7 +48,7 @@ class PageAttachmentRequest extends PageRequest {
 }
 
 @Component({
-  components: { uploadAttachment }
+  components: { uploadAttachment, previewAttachment}
 })
 export default class Attachments extends AbpBase {
   //filters
@@ -55,7 +56,8 @@ export default class Attachments extends AbpBase {
   creationTime: Date[] = [];
 
   uploadModalShow: boolean = false;
-
+  previewModalShow: boolean = false;
+  previewImgSrc:string=""
   public list: Attachment[] = [];
 
   get loading() {
@@ -70,6 +72,12 @@ export default class Attachments extends AbpBase {
     a.click();
   
 
+
+  }
+  async preview(imgSrc: string) {
+      debugger
+     this.previewModalShow = true;
+     this.previewImgSrc=imgSrc
 
   }
    async delete(id: number) {
@@ -154,6 +162,28 @@ export default class Attachments extends AbpBase {
               }
             },
             this.L("下载")
+          ),
+           h(
+            "Button",
+            {
+              props: {
+                type: "success",
+                size: "small"
+              },
+              style: {
+                marginRight: "5px",
+                display: ['.jpg','.png'].indexOf(params.row.extenson )>-1?'': 'none'
+              },
+              on: {
+                click: () => {
+                
+                  let attach = params.row as Attachment;
+                  debugger
+                  this.preview(attach.absoluteUrl).catch(err=>{});
+                }
+              }
+            },
+            this.L("预览")
           ),
               h(
             "Button",
