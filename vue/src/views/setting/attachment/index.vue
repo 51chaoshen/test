@@ -118,7 +118,7 @@ export default class Attachments extends AbpBase {
       key: "name"
     },
     {
-      title: this.L("文件大小"),
+      title: this.L("文件大小(字节)"),
       key: "fileSize"
     },
      {
@@ -180,9 +180,7 @@ export default class Attachments extends AbpBase {
   ];
   async created() {
     this.getpage();
-    await this.$store.dispatch({
-      type: "user/getRoles"
-    });
+   
   }
 }
 </script>

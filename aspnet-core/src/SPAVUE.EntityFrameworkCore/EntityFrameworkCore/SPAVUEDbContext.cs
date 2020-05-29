@@ -3,6 +3,7 @@ using Abp.Zero.EntityFrameworkCore;
 using SPAVUE.Authorization.Roles;
 using SPAVUE.Authorization.Users;
 using SPAVUE.MultiTenancy;
+using SPAVUE.Attachments;
 
 namespace SPAVUE.EntityFrameworkCore
 {

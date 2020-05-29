@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace SPAVUE.Dto
+namespace SPAVUE.Attachments.Dto
 {
 	[AutoMapFrom(typeof(Attachment))]
 	public   class AttachmentDto : EntityDto<int>

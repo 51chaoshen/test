@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace SPAVUE
+namespace SPAVUE.Attachments
 {
 	[Table("CommonAttachment")]
 	public class Attachment:FullAuditedEntity<int>

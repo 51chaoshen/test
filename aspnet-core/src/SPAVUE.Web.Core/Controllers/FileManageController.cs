@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
-using SPAVUE.Dto;
+using Microsoft.Extensions.Configuration;
+using SPAVUE.Attachments;
+using SPAVUE.Attachments.Dto;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,14 +24,19 @@ namespace SPAVUE.Controllers
 
         private readonly IWebHostEnvironment _webEnvironment;
 
-        private const string updateDir = "Attachment";
+
+        private readonly IConfiguration _configuration;
+
+        private  string updateDir = "";
 
 
 
-        public FileManageController(IWebHostEnvironment webEnvironment, IAttachmentAppService attachmentAppService)
+        public FileManageController(IWebHostEnvironment webEnvironment, IAttachmentAppService attachmentAppService, IConfiguration configuration)
         {
             _webEnvironment = webEnvironment;
             _attachmentAppService = attachmentAppService;
+            _configuration = configuration;
+            updateDir = configuration["UploadConfig:UploadPath"];
         }
 
 
@@ -55,7 +62,6 @@ namespace SPAVUE.Controllers
             try
             {
 
-
                 var realDir = Path.Combine(_webEnvironment.WebRootPath, updateDir);
 
                 if (!Directory.Exists(realDir))
@@ -68,6 +74,7 @@ namespace SPAVUE.Controllers
                     var attachment = new CreateAttachmentDto();
 
                     var fileName = file.FileName.Split('.')[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 9999) + Path.GetExtension(file.FileName);
+
                     using (var fileSteam = new FileStream(Path.Combine(realDir, fileName), FileMode.Create))
                     {
                         await file.CopyToAsync(fileSteam);
