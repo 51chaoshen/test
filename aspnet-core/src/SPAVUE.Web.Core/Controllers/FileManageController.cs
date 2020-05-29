@@ -65,17 +65,21 @@ namespace SPAVUE.Controllers
                 }
                 foreach (var file in files)
                 {
-                    using (var fileSteam = new FileStream(Path.Combine(realDir, file.FileName), FileMode.Create))
+                    var attachment = new CreateAttachmentDto();
+
+                    var fileName = file.FileName.Split('.')[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 9999) + Path.GetExtension(file.FileName);
+                    using (var fileSteam = new FileStream(Path.Combine(realDir, fileName), FileMode.Create))
                     {
                         await file.CopyToAsync(fileSteam);
                     }
                         
                     
 
-                    var attachment = new CreateAttachmentDto();
-                    attachment.FileSize = Math.Round((double)file.Length / 1024 , 2);
-                    attachment.Name = file.FileName;
+                  
+                    attachment.FileSize =file.Length;
+                    attachment.Name = file.FileName;                    
                     attachment.Extenson = Path.GetExtension(file.FileName);
+                    attachment.FileName = fileName;
                     attachment.AttachmentId = Guid.NewGuid().ToString("N");
                     await _attachmentAppService.CreateAsync(attachment);
 
@@ -109,7 +113,7 @@ namespace SPAVUE.Controllers
                 throw new ArgumentException("参数异常");
             }
 
-            var path = Path.Combine(_webEnvironment.WebRootPath, updateDir, attachment.Name);
+            var path = Path.Combine(_webEnvironment.WebRootPath, updateDir, attachment.FileName);
             if (!System.IO.File.Exists(path))
             {
                 Response.StatusCode = 404;
@@ -144,7 +148,7 @@ namespace SPAVUE.Controllers
                 throw new ArgumentException("参数异常");
             }
 
-            var path = Path.Combine(_webEnvironment.WebRootPath, updateDir, attachment.Name);
+            var path = Path.Combine(_webEnvironment.WebRootPath, updateDir, attachment.FileName);
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);

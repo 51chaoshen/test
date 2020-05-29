@@ -10,8 +10,8 @@ using SPAVUE.EntityFrameworkCore;
 namespace SPAVUE.Migrations
 {
     [DbContext(typeof(SPAVUEDbContext))]
-    [Migration("20200528130640_2")]
-    partial class _2
+    [Migration("20200529011642_modify_attachment")]
+    partial class modify_attachment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1336,6 +1336,9 @@ namespace SPAVUE.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Extenson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("FileSize")

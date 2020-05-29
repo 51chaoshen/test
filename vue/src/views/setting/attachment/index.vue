@@ -121,6 +121,13 @@ export default class Attachments extends AbpBase {
       title: this.L("文件大小"),
       key: "fileSize"
     },
+     {
+      title: this.L("上传时间"),
+      key: "creationTime",
+       render:(h:any,params:any)=>{
+                return h('span',new Date(params.row.creationTime).toLocaleString())
+            }
+    },
     {
       title: this.L("Actions"),
       key: "Actions",

@@ -2,12 +2,12 @@
 
 namespace SPAVUE.Migrations
 {
-    public partial class _2 : Migration
+    public partial class modify_attachment : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "AttachmentId",
+                name: "FileName",
                 table: "CommonAttachment",
                 nullable: true);
         }
@@ -15,7 +15,7 @@ namespace SPAVUE.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AttachmentId",
+                name: "FileName",
                 table: "CommonAttachment");
         }
     }

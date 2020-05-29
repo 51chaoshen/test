@@ -1336,6 +1336,9 @@ namespace SPAVUE.Migrations
                     b.Property<string>("Extenson")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("FileSize")
                         .HasColumnType("float");
 

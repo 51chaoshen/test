@@ -23,7 +23,7 @@ namespace SPAVUE
 
 
 		/// <summary>
-		/// 附件名称
+		/// 原附件名称
 		/// </summary>
 
 		public string Name
@@ -32,10 +32,20 @@ namespace SPAVUE
 			set;
 		}
 
+
+		/// <summary>
+		/// 附件唯一标识名称
+		/// </summary>
+		public string FileName
+		{
+			get;
+			set;
+		}
+
 		/// <summary>
 		/// 附件存储的相对地址
 		/// </summary>		
-		
+
 		public string Url
 		{
 			get;

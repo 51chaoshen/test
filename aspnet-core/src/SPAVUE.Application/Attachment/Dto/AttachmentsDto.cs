@@ -10,16 +10,20 @@ namespace SPAVUE.Dto
 	[AutoMapFrom(typeof(Attachment))]
 	public   class AttachmentDto : EntityDto<int>
 	{
-		//public string Id
-		//{
-		//	get;
-		//	set;
-		//}
+		/// <summary>
+		/// 附件ID
+		/// </summary>
+
+		public string AttachmentId
+		{
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// 附件存储的相对地址
 		/// </summary>
-	
+
 		public string Url
 		{
 			get;
@@ -56,6 +60,15 @@ namespace SPAVUE.Dto
 		}
 
 		/// <summary>
+		/// 附件唯一标识名称
+		/// </summary>
+		public string FileName
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// 后缀名
 		/// </summary>
 		public string Extenson
@@ -73,6 +86,8 @@ namespace SPAVUE.Dto
 			get;
 			set;
 		}
+
+		public DateTime CreationTime { get; set; }
 	}
 
 
@@ -123,9 +138,19 @@ namespace SPAVUE.Dto
 		}
 
 		/// <summary>
-		/// 附件名称
+		/// 原附件名称
 		/// </summary>
 		public string Name
+		{
+			get;
+			set;
+		}
+
+
+		/// <summary>
+		/// 附件唯一标识名称
+		/// </summary>
+		public string FileName
 		{
 			get;
 			set;
