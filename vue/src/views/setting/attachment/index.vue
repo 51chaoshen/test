@@ -38,6 +38,7 @@ import uploadAttachment from "./upload.vue";
 
 import Ajax from "./../../../lib/ajax";
 import Attachment from "./../../../store/entities/attachment";
+import AppConsts from './../../../lib/appconst'
 class PageAttachmentRequest extends PageRequest {
   keyword: string;
   isActive: boolean = null; //nullable
@@ -65,7 +66,7 @@ export default class Attachments extends AbpBase {
   }
   async download(id: number) {
     let a = document.createElement('a')
-    a.href ='http://localhost:21021/api/FileManage/Download?id='+id
+    a.href =AppConsts.remoteServiceBaseUrl+'/api/FileManage/Download?id='+id
     a.click();
   
 

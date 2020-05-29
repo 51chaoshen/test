@@ -3,7 +3,7 @@
     <Modal :title="L('上传')" :value="value"   @on-visible-change="visibleChange">
       <div   >
        
-          <Upload ref="upload" multiple type="drag" action="http://localhost:21021/api/FileManage/upload" :on-success="handleSuccess">
+          <Upload ref="upload" multiple type="drag" :action=remoteServiceBaseUrl :on-success="handleSuccess">
             <div style="padding: 20px 0">
               <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
               <p>点击或将文件拖拽到这里上传</p>
@@ -22,13 +22,13 @@
 import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import Util from "../../../lib/util";
 import AbpBase from "../../../lib/abpbase";
-
+import AppConsts from './../../../lib/appconst'
 @Component
 export default class upload extends AbpBase {
   @Prop({ type: Boolean, default: false }) value: boolean;
 
-
-
+  remoteServiceBaseUrl:string=  AppConsts.remoteServiceBaseUrl+"/api/FileManage/upload"
+   
   cancel() {
      const mainImg = this.$refs.upload as any; 
      mainImg.clearFiles();
