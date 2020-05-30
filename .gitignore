@@ -7,3 +7,4 @@ bin/
 aspnet-core/src/SPAVUE.Web.Host/App_Data/Logs/
 aspnet-core/src/SPAVUE.Web.Mvc/App_Data/Logs/
 aspnet-core/src/SPAVUE.Migrator/Logs/Logs.txt
+/aspnet-core/src/SPAVUE.Web.Host/wwwroot/Attachment

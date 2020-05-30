@@ -140,7 +140,7 @@ export default class Attachments extends AbpBase {
     {
       title: this.L("Actions"),
       key: "Actions",
-      width: 200,
+     
       render: (h: any, params: any) => {
         return h("div", [
           h(
@@ -161,7 +161,7 @@ export default class Attachments extends AbpBase {
                 }
               }
             },
-            this.L("下载")
+            this.L("Download")
           ),
            h(
             "Button",
@@ -172,7 +172,7 @@ export default class Attachments extends AbpBase {
               },
               style: {
                 marginRight: "5px",
-                display: ['.jpg','.png'].indexOf(params.row.extenson )>-1?'': 'none'
+                display: ['.jpg','.png'].indexOf((params.row.extenson as string).toLowerCase() )>-1?'': 'none'
               },
               on: {
                 click: () => {
@@ -183,7 +183,7 @@ export default class Attachments extends AbpBase {
                 }
               }
             },
-            this.L("预览")
+            this.L("Preview")
           ),
               h(
             "Button",
@@ -203,7 +203,7 @@ export default class Attachments extends AbpBase {
                 }
               }
             },
-            this.L("删除")
+            this.L("Delete")
           )
         ]);
       }

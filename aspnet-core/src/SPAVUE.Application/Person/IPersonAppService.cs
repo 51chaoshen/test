@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
+using Abp.Runtime.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,10 +28,23 @@ namespace SPAVUE.Person
 
 
     [AutoMapTo(typeof(SPAVUE.Person.Person))]
-    public class CreatePersonDto
-    {
+    public class CreatePersonDto: ICustomValidate
+    { 
         [StringLength(50)]
+        [Required]
         public string Name { get; set; }
+
+        //[MaxLength(11)]
+        [Required]
+        public string phone { get; set; }
+
+        public void AddValidationErrors(CustomValidationContext context)
+        {
+            if (phone.Length > 11)
+            {
+                context.Results.Add(new ValidationResult("info:The field phone must be a string or array type with a maximum length of '11'"));
+            }
+        }
     }
 }
 
