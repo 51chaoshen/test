@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace SPAVUE.Attachments
 {
-   public  class AttachmentAppService : AsyncCrudAppService<Attachment, AttachmentDto, int, PagedAttachmentResultRequestDto, CreateAttachmentDto, AttachmentDto>, IAttachmentAppService
+   public  class AttachmentAppService : AsyncCrudAppService<Attachment, AttachmentDto, Guid, PagedAttachmentResultRequestDto, CreateAttachmentDto, AttachmentDto>, IAttachmentAppService
     {
-        public AttachmentAppService(IRepository<Attachment, int> repository) : base(repository)
+        public AttachmentAppService(IRepository<Attachment, Guid> repository) : base(repository)
         {
 
         }

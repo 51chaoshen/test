@@ -8,7 +8,7 @@ using System.Text;
 namespace SPAVUE.Attachments.Dto
 {
 	[AutoMapFrom(typeof(Attachment))]
-	public   class AttachmentDto : EntityDto<int>
+	public   class AttachmentDto : EntityDto<Guid>
 	{
 		/// <summary>
 		/// 附件ID

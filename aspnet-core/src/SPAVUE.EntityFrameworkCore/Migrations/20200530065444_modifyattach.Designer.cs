@@ -10,8 +10,8 @@ using SPAVUE.EntityFrameworkCore;
 namespace SPAVUE.Migrations
 {
     [DbContext(typeof(SPAVUEDbContext))]
-    [Migration("20200529004331_init")]
-    partial class init
+    [Migration("20200530065444_modifyattach")]
+    partial class modifyattach
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1313,12 +1313,14 @@ namespace SPAVUE.Migrations
                     b.ToTable("AbpWebhookSubscriptions");
                 });
 
-            modelBuilder.Entity("SPAVUE.Attachment", b =>
+            modelBuilder.Entity("SPAVUE.Attachments.Attachment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AbsoluteUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AttachmentId")
                         .HasColumnType("nvarchar(max)");
@@ -1338,6 +1340,9 @@ namespace SPAVUE.Migrations
                     b.Property<string>("Extenson")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("FileSize")
                         .HasColumnType("float");
 
@@ -1351,6 +1356,9 @@ namespace SPAVUE.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RelativeUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remark")

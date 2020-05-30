@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SPAVUE.Migrations
 {
-    public partial class init : Migration
+    public partial class modifyattach : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -446,8 +446,7 @@ namespace SPAVUE.Migrations
                 name: "CommonAttachment",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
                     CreatorUserId = table.Column<long>(nullable: true),
                     LastModificationTime = table.Column<DateTime>(nullable: true),
@@ -457,11 +456,14 @@ namespace SPAVUE.Migrations
                     DeletionTime = table.Column<DateTime>(nullable: true),
                     AttachmentId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     Extenson = table.Column<string>(nullable: true),
                     SourceId = table.Column<string>(nullable: true),
                     FileSize = table.Column<double>(nullable: true),
-                    Remark = table.Column<string>(nullable: true)
+                    Remark = table.Column<string>(nullable: true),
+                    AbsoluteUrl = table.Column<string>(nullable: true),
+                    RelativeUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

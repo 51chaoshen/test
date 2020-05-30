@@ -149,10 +149,10 @@ namespace SPAVUE.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult> Download(int id)
+        public async Task<ActionResult> Download(Guid id)
         {
 
-            var attachment = await _attachmentAppService.GetAsync(new Abp.Application.Services.Dto.EntityDto<int>(id));
+            var attachment = await _attachmentAppService.GetAsync(new Abp.Application.Services.Dto.EntityDto<Guid>(id));
             if (attachment == null)
             {
                 throw new ArgumentException("参数异常");
@@ -176,11 +176,11 @@ namespace SPAVUE.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
 
-            var attachment = await _attachmentAppService.GetAsync(new Abp.Application.Services.Dto.EntityDto<int>(id));
-            await _attachmentAppService.DeleteAsync(new Abp.Application.Services.Dto.EntityDto<int>(id));
+            var attachment = await _attachmentAppService.GetAsync(new Abp.Application.Services.Dto.EntityDto<Guid>(id));
+            await _attachmentAppService.DeleteAsync(new Abp.Application.Services.Dto.EntityDto<Guid>(id));
             if (attachment == null)
             {
                 throw new ArgumentException("参数异常");

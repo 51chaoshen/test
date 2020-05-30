@@ -1313,10 +1313,9 @@ namespace SPAVUE.Migrations
 
             modelBuilder.Entity("SPAVUE.Attachments.Attachment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AbsoluteUrl")
                         .HasColumnType("nvarchar(max)");

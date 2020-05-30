@@ -8,7 +8,7 @@ using System.Text;
 namespace SPAVUE.Attachments
 {
 	[Table("CommonAttachment")]
-	public class Attachment:FullAuditedEntity<int>
+	public class Attachment:FullAuditedEntity<Guid>
 	{
 		/// <summary>
 		/// 附件ID

@@ -66,7 +66,7 @@ export default class Attachments extends AbpBase {
   upload() {
     this.uploadModalShow = true;
   }
-  async download(id: number) {
+  async download(id: string) {
     let a = document.createElement('a')
     a.href =AppConsts.remoteServiceBaseUrl+'/api/FileManage/Download?id='+id
     a.click();
@@ -80,7 +80,7 @@ export default class Attachments extends AbpBase {
      this.previewImgSrc=imgSrc
 
   }
-   async delete(id: number) {
+   async delete(id: string) {
     
     await Ajax.delete('/api/FileManage/Delete?id='+id)
     await this.getpage();
