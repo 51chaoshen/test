@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic.CompilerServices;
 using SPAVUE.Attachments;
 using SPAVUE.Attachments.Dto;
 using System;
@@ -59,6 +60,7 @@ namespace SPAVUE.Controllers
             {
                 throw new Exception("请上传文件");
             }
+            
 
             try
             {
@@ -72,6 +74,9 @@ namespace SPAVUE.Controllers
                 }
                 foreach (var file in files)
                 {
+                    CheckFile(file, _configuration["App:AllowExtension"], _configuration["App:MaxSize"]);
+                   
+                   
                     var attachment = new CreateAttachmentDto();
 
                     var fileName = file.FileName.Split('.')[0] + DateTime.Now.ToString("yyyyMMddHHmmss") + new Random().Next(1000, 9999) + Path.GetExtension(file.FileName);
@@ -106,6 +111,36 @@ namespace SPAVUE.Controllers
            
         }
 
+        private void CheckFile(IFormFile file,string  allowExtension,string maxSize)
+        {
+            //格式验证
+            if (checkType(file, allowExtension.ToLower().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)))
+            {
+                throw new Exception("不允许的文件类型");
+            }
+            long size;
+            if(!long.TryParse(maxSize,out size))
+            {
+                throw new Exception("文件配置异常");
+            }
+            //大小验证
+            if (checkSize(file, size))
+            {
+                throw new Exception("文件大小超出网站限制");
+            }
+        }
+
+        private bool checkSize(IFormFile file, long maxSize)
+        {
+            return file.Length >= (maxSize * 1024 * 1024);
+        }
+
+        private bool checkType(IFormFile file, string[] exts)
+        {
+            var currentType = Path.GetExtension(file.FileName).ToLower().Trim('.');
+            return Array.IndexOf(exts, currentType) == -1;
+        }
+
 
 
         ///// <summary>
@@ -133,7 +168,7 @@ namespace SPAVUE.Controllers
         //    {
 
         //        Response.ContentType = "application/octet-stream";
-        //        Response.Headers.Add("Content-Disposition", string.Format("filename={0}", attachment.Name));
+        //        Response.Headers.Add("Content-Disposition", string.Format("filename={0}", attachment.Name));//没有这行浏览器没有反应
         //        Response.ContentLength = stream.Length;
         //        await stream.CopyToAsync(Response.Body);
 

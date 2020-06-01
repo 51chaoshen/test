@@ -106,6 +106,8 @@ namespace SPAVUE.Web.Host.Startup
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
                 });
+
+               // options.OperationFilter<SwaggerFileUploadFilter>();
             });
 
             // Configure Abp and Dependency Injection
